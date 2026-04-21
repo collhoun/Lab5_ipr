@@ -30,4 +30,4 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build --target tester -t calculator-test .
+        docker build -t calculator_image .
