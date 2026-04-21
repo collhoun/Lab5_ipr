@@ -18,23 +18,31 @@ spec:
         version: v1
     spec:
        containers:
-       - name: main
-         image: my-calculator:v1
-         imagePullPolicy: IfNotPresent
-         stdin: true  # Открывает стандартный поток ввода
-         tty: true    # Эмулирует термина
-         ports:
-         - containerPort: 5000
-         env:
-      # Берем значение из ConfigMap
-          - name: PORT
-            valueFrom:
-              configMapKeyRef:
-                name: calc-config
-                key: APP_PORT
-      # Берем значение из Secret
-          - name: SECRET_TOKEN
-            valueFrom:
-              secretKeyRef:
-                name: calc-secrets
-                key: API_KEY
+        - name: main
+          image: my-calculator:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 5000
+          env:
+       # Берем значение из ConfigMap
+           - name: PORT
+             valueFrom:
+               configMapKeyRef:
+                 name: calc-config
+                 key: APP_PORT
+           - name: APP_DEBUG
+             valueFrom:
+               configMapKeyRef:
+                 name: calc-config
+                 key: APP_DEBUG
+           - name: GREETING_MSG
+             valueFrom:
+               configMapKeyRef:
+                 name: calc-config
+                 key: GREETING_MSG
+       # Берем значение из Secret
+           - name: SECRET_TOKEN
+             valueFrom:
+               secretKeyRef:
+                 name: calc-secrets
+                 key: API_KEY
