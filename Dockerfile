@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip install --no-cache-dir requirements.txt
+RUN pip install -r --no-cache-dir requirements.txt
 
 CMD ["python", "src/main.py"]
