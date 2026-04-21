@@ -1,4 +1,9 @@
-from src.calculator import calculate
+try:
+    from src.calculator import calculate
+except ModuleNotFoundError:
+    import sys
+    sys.path.append(".")
+    from src.calculator import calculate
 
 
 def main() -> None:
@@ -6,6 +11,12 @@ def main() -> None:
     Обязательнная составляющая программ, которые сдаются. Является точкой входа в приложение
     :return: Данная функция ничего не возвращает
     """
+    import os
+
+    port = os.getenv('PORT', '8080')
+    precision = os.getenv('PRECISION', '2')
+
+    print(f"Калькулятор запущен на порту {port} с точностью {precision}")
 
     calculated_expression = ''
     while calculated_expression != 'quit':
